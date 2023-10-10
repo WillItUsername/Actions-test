@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-      - '**/Views/'
+      - 'ITA/Views/'
 
 jobs:
   find_changes:
