@@ -1,0 +1,18 @@
+on:
+  push:
+    paths:
+      - '**/Views/'
+
+jobs:
+  find_changes:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: dorny/paths-filter@v2
+      with:
+        filters: |
+          views:
+            - '**/Views/'
+
+        list-files: json
+
+    - run: echo ${{ steps.filter.outputs.changed_files }}
