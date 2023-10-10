@@ -1,8 +1,8 @@
 on:
-  workflow_dispatch:
-  # push:
-  #   paths:
-  #     - 'ITA/Views'
+  # workflow_dispatch:
+  push:
+    paths:
+      - '**/Views/**'
 
 jobs:
   find_changes:
