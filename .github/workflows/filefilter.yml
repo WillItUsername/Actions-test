@@ -13,7 +13,7 @@ jobs:
       with:
         filters: |
           views:
-            - 'ITA/Views/**'
+            - '**/Views/**'
 
         list-files: json
 
