@@ -40,7 +40,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Check notebook for syntax
-    - run: |
+      run: |
         python .github/workflows/createupdate.py ${{ matrix.notebook_path }}
     # - name: Azure Login
     #   uses: Azure/login@v1
