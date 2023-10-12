@@ -3,5 +3,6 @@ on:
 
 jobs:
   job1:
+    runs-on: ubuntu-latest
     steps:
     - run: python .github/workflows/test.py
