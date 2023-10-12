@@ -31,7 +31,7 @@ jobs:
 
 
   handle_added_modified:
-    if: ${{toJson(steps.filter.outputs.addedOrModifiedViews}}
+    if: ${{fromJson(needs.find_changes.outputs.changed_notebooks)}}
     runs-on: ubuntu-latest
     needs: find_changes
     strategy:
@@ -54,7 +54,7 @@ jobs:
     #     local-notebook-path: ${{ matrix.notebook_path }}
 
   handle_deleted:
-    if: ${{toJson(steps.filter.outputs.deletedViews}}
+    if: ${{fromJson(needs.find_changes.outputs.changed_notebooks)}}
     runs-on: ubuntu-latest
     needs: find_changes
     strategy:
