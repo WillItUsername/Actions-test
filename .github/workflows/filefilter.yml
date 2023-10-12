@@ -10,7 +10,7 @@ jobs:
   find_changes:
     runs-on: ubuntu-latest
     outputs:
-      changed_notebooks: ${{ steps.notebook_paths.outputs.changed_notebooks }}
+      changed_notebooks: ${{ toJson(steps.notebook_paths.outputs.changed_notebooks) }}
     steps:
     - uses: actions/checkout@v4
     - uses: dorny/paths-filter@v2
@@ -30,7 +30,7 @@ jobs:
     needs: find_changes
     strategy:
       matrix:
-        notebook_path: ["ITA/Views/SomeView6 copy 5.sql","ITA/Views/SomeView7 copy 5.sql"]
+        notebook_path: ${{ needs.find_changes.outputs.changed_notebooks }}
     
     steps:
       - uses: actions/checkout@v4
