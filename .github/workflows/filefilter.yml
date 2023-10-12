@@ -30,7 +30,7 @@ jobs:
     needs: find_changes
     strategy:
       matrix:
-        notebook_path: ${{ fromJson(toJson(needs.find_changes.outputs.changed_notebooks)) }}
+        notebook_path: ["ITA/Views/SomeView6 copy 5.sql","ITA/Views/SomeView7 copy 5.sql"]
     
     steps:
       - uses: actions/checkout@v4
