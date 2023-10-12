@@ -10,7 +10,7 @@ jobs:
   find_changes:
     runs-on: ubuntu-latest
     outputs:
-      changed_notebooks: ${{ toJson(steps.notebook_paths.outputs.changed_notebooks) }}
+      changed_notebooks: ${{steps.notebook_paths.outputs.changed_notebooks}}
     steps:
     - uses: actions/checkout@v4
     - uses: dorny/paths-filter@v2
@@ -22,7 +22,7 @@ jobs:
 
         list-files: json
     - id: notebook_paths
-      run: echo "changed_notebooks=${{ steps.filter.outputs.views_files }}" >> "$GITHUB_OUTPUT"
+      run: echo "changed_notebooks=${{steps.filter.outputs.views_files}}" >> "$GITHUB_OUTPUT"
 
 
   handle_changes:
@@ -30,7 +30,7 @@ jobs:
     needs: find_changes
     strategy:
       matrix:
-        notebook_path: ${{ needs.find_changes.outputs.changed_notebooks }}
+        notebook_path: ${{fromJson(needs.find_changes.outputs.changed_notebooks)}}
     
     steps:
       - uses: actions/checkout@v4
