@@ -61,4 +61,5 @@ jobs:
 
     steps: 
     - uses: actions/checkout@v4
-      ref: ${{ github.event.before }}
+      with:
+        ref: ${{ github.event.before }}
