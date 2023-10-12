@@ -30,7 +30,7 @@ jobs:
     needs: find_changes
     strategy:
       matrix:
-        notebook_path: ${{ needs.find_changes.outputs.changed_notebooks }}
+        notebook_path: ${{ fromJson(toJson(needs.find_changes.outputs.changed_notebooks)) }}
     
     steps:
       - uses: actions/checkout@v4
