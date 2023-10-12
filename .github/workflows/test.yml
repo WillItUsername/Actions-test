@@ -3,4 +3,5 @@ on:
 
 jobs:
   job1:
-    run: python .github/workflows/test.py
+    steps:
+    - run: python .github/workflows/test.py
