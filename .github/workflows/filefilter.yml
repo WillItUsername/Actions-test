@@ -20,7 +20,7 @@ jobs:
           views:
             - '**/Views/**'
 
-        list-files: json
+        list-files: escape
     - id: notebook_paths
       run: echo "changed_notebooks=${{steps.filter.outputs.views_files}}" >> "$GITHUB_OUTPUT"
 
