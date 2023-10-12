@@ -1,1 +1,0 @@
-CREATE VIEW AS SELECT * FROM hello;
