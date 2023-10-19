@@ -26,7 +26,7 @@ jobs:
     - id: changed_notebooks
       run: echo "changed_notebooks=${{toJson(steps.filter.outputs.addedOrModifiedViews_files)}}" >> "$GITHUB_OUTPUT"
     - id: deleted_notebooks
-      run: echo "deleted_notebooks=${{toJson(steps.filter.outputs.deletedViews_files)}}" >> "$GITHUB_OUTPUT"S
+      run: echo "deleted_notebooks=${{toJson(steps.filter.outputs.deletedViews_files)}}" >> "$GITHUB_OUTPUT"
 
 
 
