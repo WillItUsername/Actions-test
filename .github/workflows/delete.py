@@ -1,7 +1,7 @@
 import sys
 import re
 
-def drop_schema(notebook_path, env):
+def drop_schema(notebook_path):
     """ Takes a notebook path and an environment letter.
     Prepares the notebook to be executed against gold_dataenheden schema in the environment
     """
@@ -17,16 +17,12 @@ def drop_schema(notebook_path, env):
         else:
             match = matches[0]
 
-    if env not in ['d', 't', 'p']:
-        raise Exception('Invalid environment argument.')
-        
+    for env in ['d', 't', 'p']:
+        drop = notebook_str[0:match.span()[0]]+ f"DROP SCHEMA IF EXISTS dap_{env}_gold_dataenheden.{match.group(1)};"
 
-    drop = f"DROP SCHEMA IF EXISTS dap_{env}_gold_dataenheden.{match.group(1)};"
-    temp_view_str = notebook_str[0:match.span()[0]] + drop
-
-    with open(notebook_path.replace('.sql', '_temp.sql'), 'w') as temp_notebook:
-        temp_notebook.write(temp_view_str)
+        with open(notebook_path.replace('.sql', f'_{env}_temp.sql'), 'w') as temp_notebook:
+            temp_notebook.write(drop)
 
 if __name__ == '__main__':
-    drop_schema(sys.argv[1], sys.argv[2])
+    drop_schema(sys.argv[1])
 
