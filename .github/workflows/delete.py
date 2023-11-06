@@ -1,11 +1,12 @@
 import sys
 import re
+import os.path
 
-def drop_schema(notebook_path):
-    """ Takes a notebook path and an environment letter.
+def drop_schema(folder, domain, notebook_filename):
+    """ Takes a split notebook path and an environment letter.
     Prepares the notebook to be executed against gold_dataenheden schema in the environment
     """
-    with open(notebook_path) as notebook:
+    with open(os.path.join(os.path.split(os.path.split(os.path.dirname(__file__))[0])[0],folder, domain, notebook_filename)) as notebook:
         notebook_str = notebook.read()
 
     # Search for valid create schema statments
@@ -20,9 +21,10 @@ def drop_schema(notebook_path):
     for env in ['d', 't', 'p']:
         drop = notebook_str[0:match.span()[0]]+ f"DROP SCHEMA IF EXISTS dap_{env}_gold_dataenheden.{match.group(1)};"
 
-        with open(notebook_path.replace('.sql', f'_{env}_temp.sql'), 'w') as temp_notebook:
+        with open(f'{env}_temp.sql', 'w') as temp_notebook:
             temp_notebook.write(drop)
 
 if __name__ == '__main__':
-    drop_schema(sys.argv[1])
-
+    #Split input path
+    temp = sys.argv[1].split('/')
+    drop_schema(temp[0], temp[1], temp[2])

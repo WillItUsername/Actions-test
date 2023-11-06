@@ -1,11 +1,12 @@
 import sys
 import re
+import os.path
 
-def check_format_and_prepare_notebook(notebook_path):
-    """ Takes a notebook path and an environment letter.
+def check_format_and_prepare_notebook(folder, domain, notebook_filename):
+    """ Takes a split notebook path and an environment letter.
     Prepares the notebook to be executed against gold_dataenheden schema in the environment
     """
-    with open(notebook_path) as notebook:
+    with open(os.path.join(os.path.split(os.path.split(os.path.dirname(__file__))[0])[0],folder, domain, notebook_filename)) as notebook:
         notebook_str = notebook.read()
 
     # Search for valid create schema statments
@@ -21,9 +22,11 @@ def check_format_and_prepare_notebook(notebook_path):
     temp_view_str = notebook_str[0:match.span()[0]] + drop_create + notebook_str[match.span()[1]:]
     
     for env in ['d','t','p']:
-        with open(notebook_path.replace('.sql', f'_{env}_temp.sql'), 'w') as temp_notebook:
+        with open(f'{env}_temp.sql', 'w') as temp_notebook:
             temp_notebook.write(re.sub(r"dap_[dtp]_", f"dap_{env}_", temp_view_str))
 
 if __name__ == '__main__':
-    check_format_and_prepare_notebook(sys.argv[1])
+    #Split input path
+    temp = sys.argv[1].split('/')
+    check_format_and_prepare_notebook(temp[0], temp[1], temp[2])
 
